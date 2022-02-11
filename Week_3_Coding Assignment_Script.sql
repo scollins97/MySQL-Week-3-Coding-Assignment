@@ -1,0 +1,37 @@
+DROP DATABASE IF EXISTS Your_Space_DB;
+CREATE DATABASE Your_Space_DB;
+USE Your_Space_DB;
+DROP TABLE IF EXISTS user_info;
+DROP TABLE If EXISTS posts;
+DROP TABLE IF EXISTS comments;
+
+CREATE TABLE user_info(
+user_id INT(10) NOT NULL AUTO_INCREMENT,
+username VARCHAR(30) NOT NULL,
+pass_word VARCHAR(30) NOT NULL,
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+email VARCHAR(60) NOT NULL,
+birth_date DATE,
+PRIMARY KEY(user_id)
+);
+
+CREATE TABLE posts(
+post_id INT(20) NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+post_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+post_content VARCHAR(200) NOT NULL,
+PRIMARY KEY(post_id),
+FOREIGN KEY(user_id) REFERENCES user_info(user_id)
+);
+
+CREATE TABLE comments(
+comment_id INT(40) NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+post_id INT NOT NULL,
+comment_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+comment_content VARCHAR(200) NOT NULL,
+PRIMARY KEY(comment_id),
+FOREIGN KEY(user_id) REFERENCES user_info(user_id),
+FOREIGN KEY(post_id) REFERENCES posts(post_id)
+);
